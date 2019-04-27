@@ -110,7 +110,26 @@
 
 											  // Setup the click event listeners: simply set the map to Chicago.
 											  controlUI.addEventListener('click', function() {
-												//map.setCenter(chicago);
+												var bounds = map.getBounds();
+												
+												var ne = bounds.getNorthEast();
+												var sw = bounds.getSouthWest();
+												
+												var cornerCoordinates = [
+												  [ne.lat(), ne.lng()], //NE
+												  [sw.lat(), sw.lng()], //SW
+												  [ne.lat(), sw.lng()], //NW
+												  [sw.lat(), ne.lng()]  //SE
+												];
+												/*console.log(cornerCoordinates[0][0]);
+												console.log(cornerCoordinates[0][1]);
+												console.log(cornerCoordinates[1][0]);
+												console.log(cornerCoordinates[1][1]);
+												console.log(cornerCoordinates[2][0]);
+												console.log(cornerCoordinates[2][1]);
+												console.log(cornerCoordinates[3][0]);
+												console.log(cornerCoordinates[3][1]);
+												console.log(cornerCoordinates);*/
 											  });
 
 											}
