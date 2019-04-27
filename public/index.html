@@ -2,28 +2,29 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-				<meta name="description" content="">
-					<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-						<title>Simple Sidebar - Start Bootstrap Template</title>
+		<title>Simple Sidebar - Start Bootstrap Template</title>
 
-						<!-- Bootstrap core CSS -->
-						<link href="source/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap core CSS -->
+		<link href="source/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-							<!-- Custom styles for this template -->
-							<link href="css/simple-sidebar.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="css/simple-sidebar.css" rel="stylesheet">
 
-								<style>
-									/* Always set the map height explicitly to define the size of the div
-									* element that contains the map. */
-									#map {
-									height: 80%;
-									padding: 10px;
-									}
-								</style>
+		<style>
+			/* Always set the map height explicitly to define the size of the div
+			* element that contains the map. */
+			#map {
+			height: 80%;
+			margin: 10px;
+			}
+		</style>
+					
 
-							</head>
+	</head>
 
 							<body>
 
@@ -80,7 +81,13 @@
 											<h1 class="mt-4">Hello World</h1>
 										</div>
 										<div id="map"></div>
-										<script>
+										
+										<!--Data Parsing For Parcels-->
+										<script src="source/data/parse.js"></script>
+										
+										<script defer>
+										
+										
 											var map;
 
 											function initMap() {
@@ -91,6 +98,9 @@
 											center: {lat: 47.6062, lng: -122.3321},
 											zoom: 8
 											});
+
+											var parseData = returnData();
+											console.log(parseData);
 
 											var marker = new google.maps.Marker({
 											position: myLatLng,
@@ -105,8 +115,10 @@
 											});
 											}
 										</script>
+										
+
 										<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap"
-												async defer></script>
+												defer></script>
 									</div>
 									<!-- /#page-content-wrapper -->
 
@@ -124,6 +136,8 @@
 									$("#wrapper").toggleClass("toggled");
 									});
 								</script>
+								
+
 
 							</body>
 
