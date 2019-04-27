@@ -16,6 +16,15 @@
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
+	<style>
+	/* Always set the map height explicitly to define the size of the div
+	* element that contains the map. */
+	#map {
+		height: 80%;
+		padding: 10px;
+	}
+	</style>
+  
 </head>
 
 <body>
@@ -71,9 +80,35 @@
 
       <div class="container-fluid">
         <h1 class="mt-4">Hello World</h1>
-        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
       </div>
+		<div id="map"></div>
+		<script>
+		var map;
+			
+		function initMap() {
+			var myLatLng = {lat: 47.8209, lng: -122.3151};
+			var myLatLng2 = {lat: 47.5301, lng: -122.0326};
+		
+			map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 47.6062, lng: -122.3321},
+			zoom: 8
+			});
+			
+			var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!'
+			});
+			
+			var marker2 = new google.maps.Marker({
+			position: myLatLng2,
+			map: map,
+			title: 'Hello World!'
+			});
+		}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap"
+		async defer></script>
     </div>
     <!-- /#page-content-wrapper -->
 
