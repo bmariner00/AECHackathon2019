@@ -16,7 +16,7 @@
 			/* Always set the map height explicitly to define the size of the div
 			* element that contains the map. */
 			#map {
-			height: 100%;
+			height: 96%;
 			width: 100%;
 			padding: 10px;
 			}
@@ -25,11 +25,20 @@
 				margin: 0;
 				height: 100%;
 			}
+			
+			div.image {
+			   content:url(GradientBar.png);
+			   height: 10%;
+			   width: 100%;
+			   position: absolute;
+			   top: 100;
+			}​
 		</style>
 	</head>
 
 	<body>
 		<div id="imageWrapper">
+			<div id="gradient" class="image"></div>​
 			<div id="map" style="position:relative;z-index:1;"></div>
 		</div>
 		<script>
