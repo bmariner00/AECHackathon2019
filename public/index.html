@@ -88,22 +88,10 @@
 			}
 
 			function initMap() {
-				var myLatLng = {lat: 47.8209, lng: -122.3151};
-				var myLatLng2 = {lat: 47.5301, lng: -122.0326};
 
 				map = new google.maps.Map(document.getElementById('map'), {
 					center: {lat: 47.6062, lng: -122.3321},
 					zoom: 8
-				});
-
-				var marker = new google.maps.Marker({
-					position: myLatLng,
-					map: map,
-				});
-
-				var marker2 = new google.maps.Marker({
-					position: myLatLng2,
-					map: map,
 				});
 				
 				// Create the DIV to hold the control and call the GenerateControl()
