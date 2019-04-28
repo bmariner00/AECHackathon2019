@@ -1,5 +1,3 @@
-
-
 function convertValuesToWeights(values, valueType) {
 	
 	//get max and min
@@ -7,7 +5,7 @@ function convertValuesToWeights(values, valueType) {
 	if (valueType == "grade") {
 		max = "A+";
 		min = "E-";
-	} else if (valueType == "yearBuilt" {
+	} else if (valueType == "yearBuilt") {
 		max = Math.max.apply(Math, values.map(function(arr) {
 			return arr[2];
 		}));
@@ -17,11 +15,11 @@ function convertValuesToWeights(values, valueType) {
 	}
 	
 	//convert values to weights
-	for (value in values){
+	for ( i = 0 ; i < values.length ; i++){
 		if (valueType == "grade") {
-			value[2] = convertBuildingGradeToWeight(value[2])
+			values[i][2] = convertBuildingGradeToWeight(values[i][2])
 		} else if (valueType == "yearBuilt") {
-			value[2] = convertYearBuiltToGrade(value[2], min)
+			values[i][2] = convertYearBuiltToWeight(values[i][2], min)
 		}
 	}
 	
