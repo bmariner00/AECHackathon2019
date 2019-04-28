@@ -78,6 +78,7 @@
 
 										<div id="map"></div>
 										<script src="weighter.js"></script> 
+										<script src="HeatmapMaker.js"></script> 
 										<script>
 											var map;
 											 
@@ -119,6 +120,8 @@
 														[ne.lat(), sw.lng()], //NW
 														[sw.lat(), ne.lng()]  //SE
 													];
+													
+													//createHeatmap(weightedCoords, map);			
 												});
 											}
 
@@ -153,9 +156,13 @@
 
 											}
 										</script>
+<<<<<<< HEAD
 										<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap"
 												async defer></script>
 												<script src="scale.js"></script>
+=======
+										<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap&libraries=visualization" async defer></script>
+>>>>>>> added heatmap creation
 									</div>
 									<!-- /#page-content-wrapper -->
 
