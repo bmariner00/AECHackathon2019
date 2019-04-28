@@ -2,181 +2,115 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-				<meta name="description" content="">
-					<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-						<title>Simple Sidebar - Start Bootstrap Template</title>
+		<title>HEATMAPS BABY</title>
 
-						<!-- Bootstrap core CSS -->
-						<link href="source/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap core CSS -->
+		<link href="source/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-							<!-- Custom styles for this template -->
-							<link href="css/simple-sidebar.css" rel="stylesheet">
+		<style>
+			/* Always set the map height explicitly to define the size of the div
+			* element that contains the map. */
+			#map {
+			height: 100%;
+			width: 100%;
+			padding: 10px;
+			}
+			
+			html, body {
+				margin: 0;
+				height: 100%;
+			}
+		</style>
+	</head>
 
-								<style>
-									/* Always set the map height explicitly to define the size of the div
-									* element that contains the map. */
-									#map {
-									height: 80%;
-									padding: 10px;
-									}
-								</style>
+	<body>
+		<div id="map"></div>
+		<script>
+			var map;
+			 
+			function GenerateControl(controlDiv, map) {
 
-							</head>
+				// Set CSS for the control border.
+				var controlUI = document.createElement('div');
+				controlUI.style.backgroundColor = '#fff';
+				controlUI.style.border = '2px solid #fff';
+				controlUI.style.borderRadius = '3px';
+				controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+				controlUI.style.cursor = 'pointer';
+				controlUI.style.marginBottom = '22px';
+				controlUI.style.textAlign = 'center';
+				controlUI.title = 'Click to Generate Hea Map';
+				controlDiv.appendChild(controlUI);
 
-							<body>
+				// Set CSS for the control interior.
+				var controlText = document.createElement('div');
+				controlText.style.color = 'rgb(25,25,25)';
+				controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+				controlText.style.fontSize = '16px';
+				controlText.style.lineHeight = '38px';
+				controlText.style.paddingLeft = '5px';
+				controlText.style.paddingRight = '5px';
+				controlText.innerHTML = 'GENERATE';
+				controlUI.appendChild(controlText);
 
-								<div class="d-flex" id="wrapper">
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlUI.addEventListener('click', function() {
+					var bounds = map.getBounds();
+				
+					var ne = bounds.getNorthEast();
+					var sw = bounds.getSouthWest();
+				
+					var cornerCoordinates = [
+						[ne.lat(), ne.lng()], //NE
+						[sw.lat(), sw.lng()], //SW
+						[ne.lat(), sw.lng()], //NW
+						[sw.lat(), ne.lng()]  //SE
+					];
+					
+					//createHeatmap(weightedCoords, map);			
+				});
+			}
 
-									<!-- Sidebar -->
-									<div class="bg-light border-right" id="sidebar-wrapper">
-										<div class="sidebar-heading">Start Bootstrap </div>
-										<div class="list-group list-group-flush">
-											<a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-											<a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-											<a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-											<a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-											<a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-											<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
-										</div>
-									</div>
-									<!-- /#sidebar-wrapper -->
+			function initMap() {
+				var myLatLng = {lat: 47.8209, lng: -122.3151};
+				var myLatLng2 = {lat: 47.5301, lng: -122.0326};
 
-									<!-- Page Content -->
-									<div id="page-content-wrapper">
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 47.6062, lng: -122.3321},
+					zoom: 8
+				});
 
-										<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-											<button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+				var marker = new google.maps.Marker({
+					position: myLatLng,
+					map: map,
+				});
 
-											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-												<span class="navbar-toggler-icon"></span>
-											</button>
+				var marker2 = new google.maps.Marker({
+					position: myLatLng2,
+					map: map,
+				});
+				
+				// Create the DIV to hold the control and call the GenerateControl()
+				// constructor passing in this DIV.
+				var generateControlDiv = document.createElement('div');
+				var generateControl = new GenerateControl(generateControlDiv, map);
 
-											<div class="collapse navbar-collapse" id="navbarSupportedContent">
-												<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-													<li class="nav-item active">
-														<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-													</li>
-													<li class="nav-item">
-														<a class="nav-link" href="#">Link</a>
-													</li>
-													<li class="nav-item dropdown">
-														<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															Dropdown
-														</a>
-														<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-															<a class="dropdown-item" href="#">Action</a>
-															<a class="dropdown-item" href="#">Another action</a>
-															<div class="dropdown-divider"></div>
-															<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</nav>
+				generateControlDiv.index = 1;
+				map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(generateControlDiv);
+			}
+		</script>
+		<script src="weighter.js"></script> 
+		<script src="HeatmapMaker.js"></script> 
+		<script src="scale.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap&libraries=visualization" async defer></script>
+		<!-- Bootstrap core JavaScript -->
+		<script src="source/jquery/jquery.min.js"></script>
+		<script src="source/bootstrap/js/bootstrap.bundle.min.js"></script>
+	</body>
 
-										<div id="map"></div>
-										<script src="weighter.js"></script> 
-										<script src="HeatmapMaker.js"></script> 
-										<script>
-											var map;
-											 
-											function GenerateControl(controlDiv, map) {
-
-												// Set CSS for the control border.
-												var controlUI = document.createElement('div');
-												controlUI.style.backgroundColor = '#fff';
-												controlUI.style.border = '2px solid #fff';
-												controlUI.style.borderRadius = '3px';
-												controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-												controlUI.style.cursor = 'pointer';
-												controlUI.style.marginBottom = '22px';
-												controlUI.style.textAlign = 'center';
-												controlUI.title = 'Click to Generate Hea Map';
-												controlDiv.appendChild(controlUI);
-
-												// Set CSS for the control interior.
-												var controlText = document.createElement('div');
-												controlText.style.color = 'rgb(25,25,25)';
-												controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-											    controlText.style.fontSize = '16px';
-												controlText.style.lineHeight = '38px';
-												controlText.style.paddingLeft = '5px';
-												controlText.style.paddingRight = '5px';
-												controlText.innerHTML = 'GENERATE';
-												controlUI.appendChild(controlText);
-
-												// Setup the click event listeners: simply set the map to Chicago.
-												controlUI.addEventListener('click', function() {
-													var bounds = map.getBounds();
-												
-													var ne = bounds.getNorthEast();
-													var sw = bounds.getSouthWest();
-												
-													var cornerCoordinates = [
-														[ne.lat(), ne.lng()], //NE
-														[sw.lat(), sw.lng()], //SW
-														[ne.lat(), sw.lng()], //NW
-														[sw.lat(), ne.lng()]  //SE
-													];
-													
-													//createHeatmap(weightedCoords, map);			
-												});
-											}
-
-											function initMap() {
-											var myLatLng = {lat: 47.8209, lng: -122.3151};
-											var myLatLng2 = {lat: 47.5301, lng: -122.0326};
-
-											map = new google.maps.Map(document.getElementById('map'), {
-											center: {lat: 47.6062, lng: -122.3321},
-											zoom: 8
-											});
-
-											var marker = new google.maps.Marker({
-											position: myLatLng,
-											map: map,
-											
-											});
-
-											var marker2 = new google.maps.Marker({
-											position: myLatLng2,
-											map: map,
-											});
-											
-											// Create the DIV to hold the control and call the GenerateControl()
-											  // constructor passing in this DIV.
-											  var generateControlDiv = document.createElement('div');
-											  var generateControl = new GenerateControl(generateControlDiv, map);
-
-											  generateControlDiv.index = 1;
-											  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(generateControlDiv);
-											  
-
-											}
-										</script>
-										<script src="scale.js"></script>
-										<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap&libraries=visualization" async defer></script>
-									</div>
-									<!-- /#page-content-wrapper -->
-
-								</div>
-								<!-- /#wrapper -->
-
-								<!-- Bootstrap core JavaScript -->
-								<script src="source/jquery/jquery.min.js"></script>
-								<script src="source/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-								<!-- Menu Toggle Script -->
-								<script>
-									$("#menu-toggle").click(function(e) {
-									e.preventDefault();
-									$("#wrapper").toggleClass("toggled");
-									});
-								</script>
-
-							</body>
-
-						</html>
+</html>
 						
