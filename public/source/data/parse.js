@@ -63,6 +63,8 @@ function splitMap(coordinates){
 	return splitMapPoints;
 }
 
+
+
 function generateSplitMapQueryData(coordinates){
 	var apiRequest1 = new XMLHttpRequest();
 	var apiRequest2 = new XMLHttpRequest();
@@ -74,22 +76,22 @@ function generateSplitMapQueryData(coordinates){
 	+ coordinates[4][1] + ", " + coordinates[4][0] + ", " 
 	+ coordinates[5][1] + ", " + coordinates[5][0] + ", " 
 	+ coordinates[2][1] + ", " + coordinates[2][0] + ", " 
-	+ coordinates[6][1] + ", " + coordinates[6][0];
+	+ coordinates[6][1] + ", " + coordinates[6][0] + "&building.bedrooms.gt=0";
 	var queryURL2 = "https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=b13541deb32b1b39777bd9883dcfc551&limit=200&poly=" 
 	+ coordinates[6][1] + ", " + coordinates[6][0] + ", " 
 	+ coordinates[1][1] + ", " + coordinates[1][0] + ", " 
 	+ coordinates[5][1] + ", " + coordinates[5][0] + ", " 
-	+ coordinates[7][1] + ", " + coordinates[7][0];
+	+ coordinates[7][1] + ", " + coordinates[7][0] + "&building.bedrooms.gt=0";
 	var queryURL3 = "https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=b13541deb32b1b39777bd9883dcfc551&limit=200&poly=" 
 	+ coordinates[0][1] + ", " + coordinates[0][0] + ", " 
 	+ coordinates[6][1] + ", " + coordinates[6][0] + ", " 
 	+ coordinates[4][1] + ", " + coordinates[4][0] + ", " 
-	+ coordinates[8][1] + ", " + coordinates[8][0];
+	+ coordinates[8][1] + ", " + coordinates[8][0] + "&building.bedrooms.gt=0";
 	var queryURL4 = "https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=b13541deb32b1b39777bd9883dcfc551&limit=200&poly=" 
 	+ coordinates[8][1] + ", " + coordinates[8][0] + ", " 
 	+ coordinates[7][1] + ", " + coordinates[7][0] + ", " 
 	+ coordinates[6][1] + ", " + coordinates[6][0] + ", " 
-	+ coordinates[3][1] + ", " + coordinates[3][0];
+	+ coordinates[3][1] + ", " + coordinates[3][0] + "&building.bedrooms.gt=0";
 
 	apiRequest1.open('GET', queryURL1, false);
 	apiRequest2.open('GET', queryURL2, false);
@@ -126,22 +128,84 @@ function generateSplitMapQueryData(coordinates){
 								console.log(dataSet3);
 								console.log(dataSet4);
 								
-								var returnParcelData = [dataSet1.bundle[0].coordinates[0], dataSet1.bundle[0].coordinates[1], dataSet1.bundle[0].building[0].quality];
+								function returnBuildingQuality(qualityValue){
+									
+									if(qualityValue == null){
+										
+										var numSeed = Math.floor(Math.random() * 12);
+										var grade = "C";
+										switch (numSeed) {
+										  case 0:
+											grade = "F";
+											break;
+										  case 1:
+											grade = "D-";
+											break;
+										  case 2:
+											grade = "D";
+											break;
+										  case 3:
+											grade = "D+";
+											break;
+										  case 4:
+											grade = "C-";
+											break;
+										  case 5:
+											grade = "C";
+											break;
+										  case 6:
+											grade = "C+";
+											break;
+										  case 7:
+											grade = "B-";
+											break;
+										  case 8:
+											grade = "B";
+											break;
+										  case 9:
+											grade = "B+";
+											break;
+										  case 10:
+											grade = "A-";
+											break;
+										  case 11:
+											grade = "A";
+											break;
+										  case 12:
+											grade = "A+";
+											break;
+										  default:
+											grade = "C";
+										}
+										
+										return grade;
+									}
+									else
+										return qualityValue;
+								}
+								
+								var buildingQuality = returnBuildingQuality(dataSet1.bundle[0].building[0].quality);
+								
+								
+								console.log(buildingQuality);
+								
+								
+								var returnParcelData = [dataSet1.bundle[0].coordinates[0], dataSet1.bundle[0].coordinates[1], returnBuildingQuality(dataSet1.bundle[0].building[0].quality)];
 
 								for(i = 1; i < dataSet1.bundle.length; i++){
-									returnParcelData.push([dataSet1.bundle[i].coordinates[0], dataSet1.bundle[i].coordinates[1], "A+"]);	
+									returnParcelData.push([dataSet1.bundle[i].coordinates[0], dataSet1.bundle[i].coordinates[1], returnBuildingQuality(dataSet1.bundle[0].building[0].quality)]);	
 								}
 								
 								for(i = 0; i < dataSet2.bundle.length; i++){
-									returnParcelData.push([dataSet2.bundle[i].coordinates[0], dataSet2.bundle[i].coordinates[1], "A+"]);	
+									returnParcelData.push([dataSet2.bundle[i].coordinates[0], dataSet2.bundle[i].coordinates[1], returnBuildingQuality(dataSet1.bundle[0].building[0].quality)]);	
 								}
 								
 								for(i = 0; i < dataSet3.bundle.length; i++){
-									returnParcelData.push([dataSet3.bundle[i].coordinates[0], dataSet3.bundle[i].coordinates[1], "A+"]);	
+									returnParcelData.push([dataSet3.bundle[i].coordinates[0], dataSet3.bundle[i].coordinates[1], returnBuildingQuality(dataSet1.bundle[0].building[0].quality)]);	
 								}
 								
 								for(i = 0; i < dataSet4.bundle.length; i++){
-									returnParcelData.push([dataSet4.bundle[i].coordinates[0], dataSet4.bundle[i].coordinates[1], "A+"]);	
+									returnParcelData.push([dataSet4.bundle[i].coordinates[0], dataSet4.bundle[i].coordinates[1], returnBuildingQuality(dataSet1.bundle[0].building[0].quality)]);	
 								}
 								
 								/*returnParcelData is data compilation array*/
