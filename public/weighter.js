@@ -15,7 +15,7 @@ function convertValuesToWeights(values, valueType) {
 	}
 	
 	//convert values to weights
-	for ( i = 0 ; i < values.length ; i++){
+	for ( i = 0 ; i < values.length ; i++ ){
 		if (valueType == "grade") {
 			values[i][2] = convertBuildingGradeToWeight(values[i][2])
 		} else if (valueType == "yearBuilt") {
@@ -81,5 +81,4 @@ function convertBuildingGradeToWeight(grade) {
 
 function convertYearBuiltToWeight(year, min) {
 	return year - min;
-	
 }
