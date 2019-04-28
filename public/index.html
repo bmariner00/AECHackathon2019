@@ -76,14 +76,11 @@
 											</div>
 										</nav>
 
-										<div class="container-fluid">
-											<h1 class="mt-4">Hello World</h1>
-										</div>
 										<div id="map"></div>
 										<script>
 											var map;
 											 
-											function CenterControl(controlDiv, map) {
+											function GenerateControl(controlDiv, map) {
 
 											  // Set CSS for the control border.
 											  var controlUI = document.createElement('div');
@@ -94,7 +91,7 @@
 											  controlUI.style.cursor = 'pointer';
 											  controlUI.style.marginBottom = '22px';
 											  controlUI.style.textAlign = 'center';
-											  controlUI.title = 'Click to Generate Hea Map';
+											  controlUI.title = 'Click to Generate Heat Map';
 											  controlDiv.appendChild(controlUI);
 
 											  // Set CSS for the control interior.
@@ -108,7 +105,7 @@
 											  controlText.innerHTML = 'GENERATE';
 											  controlUI.appendChild(controlText);
 
-											  // Setup the click event listeners: simply set the map to Chicago.
+											  // Setup the click event listeners
 											  controlUI.addEventListener('click', function() {
 												var bounds = map.getBounds();
 												
@@ -131,7 +128,6 @@
 												console.log(cornerCoordinates[3][1]);
 												console.log(cornerCoordinates);*/
 											  });
-
 											}
 
 											function initMap() {
@@ -146,27 +142,28 @@
 											var marker = new google.maps.Marker({
 											position: myLatLng,
 											map: map,
-											title: 'Hello World!'
+											
 											});
 
 											var marker2 = new google.maps.Marker({
 											position: myLatLng2,
 											map: map,
-											title: 'Hello World!'
 											});
 											
-											// Create the DIV to hold the control and call the CenterControl()
+											// Create the DIV to hold the control and call the GenerateControl()
 											  // constructor passing in this DIV.
-											  var centerControlDiv = document.createElement('div');
-											  var centerControl = new CenterControl(centerControlDiv, map);
+											  var generateControlDiv = document.createElement('div');
+											  var generateControl = new GenerateControl(generateControlDiv, map);
 
-											  centerControlDiv.index = 1;
-											  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+											  generateControlDiv.index = 1;
+											  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(generateControlDiv);
+											  
 
 											}
 										</script>
 										<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcbAUYl4TsjHZPtf6PBJeerjjvRACK4Fg&callback=initMap"
 												async defer></script>
+												<script src="scale.js"></script>
 									</div>
 									<!-- /#page-content-wrapper -->
 
