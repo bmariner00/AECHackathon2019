@@ -20,7 +20,7 @@
 			padding: 10px;
 			}
 			
-			html, body {
+			html, body, #imageWrapper {
 				margin: 0;
 				height: 100%;
 			}
@@ -28,7 +28,9 @@
 	</head>
 
 	<body>
-		<div id="map"></div>
+		<div id="imageWrapper">
+			<div id="map" style="position:relative;z-index:1;"></div>
+		</div>
 		<script>
 			var map;
 			 
@@ -43,7 +45,7 @@
 				controlUI.style.cursor = 'pointer';
 				controlUI.style.marginBottom = '22px';
 				controlUI.style.textAlign = 'center';
-				controlUI.title = 'Click to Generate Hea Map';
+				controlUI.title = 'Click to Generate Heat Map';
 				controlDiv.appendChild(controlUI);
 
 				// Set CSS for the control interior.
@@ -71,7 +73,8 @@
 						[sw.lat(), ne.lng()]  //SE
 					];
 					
-					//createHeatmap(weightedCoords, map);			
+					//createHeatmap(weightedCoords, map);	
+					showScale(2000, 2010);
 				});
 			}
 
